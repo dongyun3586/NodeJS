@@ -1,0 +1,19 @@
+html
+  head
+    title= title
+  body
+    h1
+      a(href="/") WEB
+    ul
+      each val in list
+        li
+          a(href=`/${val}`)=val
+    div ------------------------------------
+    form(action=`/${action}`, method="post")
+      p
+        input(type="text", name="title", placeholder="title")
+      p
+        textarea(name="description", cols="20", rows="10", placeholder="description")
+      p
+        input(type="submit")
+    

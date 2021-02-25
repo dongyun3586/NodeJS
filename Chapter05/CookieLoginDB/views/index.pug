@@ -1,0 +1,29 @@
+html
+  head
+    title= title
+  body
+    case isLogin
+      when 0
+        a(href="/login.html") login
+      when 1
+        a(href="/logout") logout
+    
+    h1
+      a(href="/") HOME
+    ul
+      each val in list
+        li
+          a(href=`/?id=${val}`)=val
+
+    case isroot
+      when 1
+        a(href="/create") create
+      when 0
+        p
+          a(href="/create") create  
+          a(href=`/update/?id=${title}`) update
+          form(action=`/delete`, method="post")
+            input(type="hidden", name="deleteTitle", value=`${title}`)
+            input(type="submit", value="delete")
+    h2= title
+    p= description

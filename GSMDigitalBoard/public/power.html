@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bg {
+            position: fixed; 
+                
+            /* Preserve aspet ratio */
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="bgimg"></div> -->
+    <img src="images/전력사용량.png" id="bg" alt="">
+    <script>
+        setTimeout(() => {
+            location.href = '/notice/show';
+        }, 5000);
+    </script>
+</body>
+</html>

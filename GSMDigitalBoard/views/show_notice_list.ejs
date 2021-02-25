@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSM Digital Noticeboard</title>
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" /> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" /> -->
+  <!-- Third party plugin CSS-->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" >
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href='/stylesheets/login_style.css' rel='stylesheet' />
+
+</head>
+<body>
+  <!-- Navigation-->
+  <div class="container">
+    <% if(isLogin){ %>
+        <span class="psw margin-right-2rem"><a href="/users/logout">Logout (<%=userEmail%>)</a></span>
+        <span class="psw margin-right-2rem"><a href="/notice/write">Write</a></span>
+        <span class="psw margin-right-2rem"><a href="/">HOME</a></span>
+    <% } %>
+</div>
+
+<div class="container">
+  <h2>Notice List (Total counts: <%= articles_count[0]["COUNT(*)"] %>)</h2>
+  <p><button type="button" class="btn btn-danger"><a href="/article/show_article">Noticeboard</a></button></p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Date(start)</th>
+        <th>Date(end)</th>
+        <!-- <th>Image File Name</th> -->
+        <th>Message</th>
+        <th>Writer(e-mail)</th>
+        <th>Modify Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.forEach((item)=>{ %>
+        <tr>
+          <th><%= item.idarticle %></th>
+          <th><%= item.title %></th>
+          <th><%= item.date_start_post.toString().substring(0, 10) %></th>
+          <th><%= item.date_end_post.toString().substring(0, 10) %></th>
+          <!-- <th><%= item.article_img.toString().substring(16) %></th> -->
+          <th><%= item.message %></th>
+          <th><%= item.writer_email %></th>
+          <th>
+            <a href="#">Modify</a>
+            <a href="/notice/delete/<%= item.idarticle %>">Delete</a>
+          </th>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

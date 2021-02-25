@@ -1,0 +1,15 @@
+html
+    head
+        title= title
+    body
+        h2 My Favorite DramaList
+        ul
+            each val in list
+                li= `(${val.id}) ${val.title}(${val.actor})`
+        div -----------------------------------------------------
+        form(action="http://localhost:8080", method="post")
+            p
+                input(type="text", name="title", placeholder="드라마 제목")
+                input(type="text", name="actor", placeholder="주연 배우")
+            p 
+                input(type="submit", value="드라마 추가")

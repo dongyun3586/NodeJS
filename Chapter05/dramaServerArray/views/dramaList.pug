@@ -1,0 +1,18 @@
+html
+    head
+        title= title
+    body
+        h1 My Favorite DramaList
+        ol
+            each val in list
+                li= `${val.title}(${val.actor})`
+
+    div ---------------------------------------------------------
+    h3 드라마 추가
+    form(action="http://localhost:8080", method="POST")
+        p 제목
+            input(type="text" name="title")
+        p 배우
+            input(type="text" name="actor")    
+        input(type="submit" value="드라마 추가")
+        

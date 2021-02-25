@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <!-- 체크박스 하나만 선택되게 하기 -->
+    <script type="text/javascript" src="/javascripts/dramaListModify.js"></script>
+    <style>
+      .button { 
+        width: 250px; 
+        margin-bottom: 5px;
+      } 
+      #deleteButton{color:red;}
+    </style>
+  </head>
+  <body>
+    <% if(isLogin){ %>
+      <a href="/users/logout"><h4>Logout</h4></a>
+      <h1>My Favorite DramaList</h1>
+      <% list.forEach(function(val){ %>
+        <div>
+          <input type="checkbox" name="dramaListCheckbox" value=<%=val.id%> onclick="chooseOnlyOneCheckBox(this, <%=val.id%>)">
+          <span><span id="title<%=val.id%>"><%=val.title%></span>(<span id="actor<%=val.id%>"><%=val.actor%></span>)</span>
+        </div>
+      <% }) %>
+
+    <div>-----------------------------------------------</div>
+
+    <form action="http://localhost:3000/drama" method="post">
+      <p> 제목
+        <input type="text" name="title" id="title">
+      </p>
+      <p> 배우
+        <input type="text" name="actor" id="actor">
+      </p>
+      <input type="submit" class="button" id="submitBtn" value="전송">
+    </form>
+    <a href="#" id="deleteBtn"><button id="deleteButton" class="button">삭제</button></a>
+
+    <% }else{ %>
+      <a href="http://localhost:3000"><h4>Login</h4></a>
+      <h1>My Favorite DramaList</h1>
+      <ol>
+        <% list.forEach(function(val){ %>
+          <li><%=val.title%>(<%=val.actor%>)</li>
+        <% }) %>
+      </ol>
+    <% } %>
+  </body>
+</html>

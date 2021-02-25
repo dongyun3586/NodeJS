@@ -1,0 +1,37 @@
+#mainImage {width: 500px;}
+h1 a 
+{
+    color:black;
+    text-decoration:inherit;
+}
+
+header 
+{
+    border-bottom: 1px gray solid;
+}
+
+nav 
+{
+    border-right: 1px solid gray;
+    width:200px;
+    height: 600px;
+    float: left;
+}
+
+article 
+{
+    width: 400px;
+    height: 600px;
+    float: left;
+    padding: 20px;
+}
+
+footer 
+{
+    margin-top: 600px;
+    padding: 20px;
+    /* text-align: left; */
+    vertical-align: middle;
+    background-color: #666666;
+    color: #fff;
+}

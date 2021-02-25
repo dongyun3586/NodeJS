@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>My Favorite DramaList</h1>
+    <ol>
+      <% list.forEach(function(val){ %>
+        <li><%=val.title%>(<%=val.actor%>)</li>
+      <% }) %>
+    </ol>
+
+    <div>-----------------------------------------------</div>
+
+    <form action="http://localhost:3000" method="post">
+      <p> 제목
+        <input type="text" name="title">
+      </p>
+      <p> 배우
+        <input type="text" name="actor">
+      </p>
+      <input type="submit">
+    </form>
+  </body>
+</html>
