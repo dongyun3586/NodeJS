@@ -72,7 +72,7 @@
         <script>
             // 5초마다 차례 대로 스크롤하며 보여주기
             window.onload = ()=>{
-                let img_length = <%= results_length %>;
+                let img_length = <%=results_length %>
                 // console.log('results_length', img_length);
                 // const sectionList = ['#img0', '#img1', '#img2']
                 const sectionList = []
@@ -97,10 +97,13 @@
                     count--;
                     if(count < 0){
                         console.log('stop')
-                        location.href = '/power.html'
+                        window.location.href = "http://10.122.0.78:3000/notice/show"; // 특정 url 요청
+                        // window.location.reload();  // 현재 화면 리로드
+                        // location.href = '/power.html'
+                        // location.href = 'localhost:3000/notice/show'
                         // clearInterval(interval)
                     }
-                }, 5000);
+                }, 3000);
             }
         </script>
     </body>
