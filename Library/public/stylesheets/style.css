@@ -1,0 +1,26 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.float-right {
+  float: right;
+}
+
+header {
+  margin-top: 100px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr;
+}
+
+img {
+  width: 800px;
+  height: 600px;
+  display: block;
+  margin: 0px auto;
+}
