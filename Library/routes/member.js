@@ -32,8 +32,32 @@ router.post('/login', (req, res)=>{
     //#endregion
 
     //#region 2. Promise
-    model.selectMember(req.body.email)
-      .then((results)=>{
+    // model.selectMember(req.body.email)
+    //   .then((results)=>{
+    //     if(results[0]==undefined){
+    //       res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
+    //     }else{
+    //       if(req.body.email === results[0].email && req.body.password === results[0].pwd){
+    //         req.session.isLogin = true;
+    //         req.session.user_email = req.body.email;
+    //         req.session.user_name = results[0].name;
+    //         res.redirect('/');
+    //       }else{
+    //         res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
+    //       }
+    //     }
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err);
+    //   })
+    //#endregion
+
+    //#region 3. async await
+    (async ()=>{
+      let results = await model.selectMember(req.body.email);
+      if(results[0]==undefined){
+        res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
+      }else{
         if(results[0]==undefined){
           res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
         }else{
@@ -46,10 +70,8 @@ router.post('/login', (req, res)=>{
             res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
           }
         }
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+      }
+    })()
     //#endregion
   }else{
     res.redirect('/');
@@ -80,9 +102,22 @@ router.get('/modify', (req, res)=>{
   //#endregion
 
   //#region 2. Promise
-  model.selectMember(req.session.user_email)
-    .then(results => {
-      console.log(results[0])
+  // model.selectMember(req.session.user_email)
+  //   .then(results => {
+  //     console.log(results[0])
+  //   res.render('member', { 
+  //     title: 'Member 정보 수정페이지', 
+  //     isLogin: req.session.isLogin, 
+  //     user_email: req.session.user_email, 
+  //     user_name: req.session.user_name,
+  //     results: results[0] }
+  //     );
+  //   })
+  //#endregion
+
+  //#region async await
+  (async ()=>{
+    let results = await model.selectMember(req.session.user_email);
     res.render('member', { 
       title: 'Member 정보 수정페이지', 
       isLogin: req.session.isLogin, 
@@ -90,7 +125,7 @@ router.get('/modify', (req, res)=>{
       user_name: req.session.user_name,
       results: results[0] }
       );
-    })
+  })()
   //#endregion
 })
 
