@@ -1,0 +1,38 @@
+@charset "UTF-8";
+* {margin: 0; padding: 0;}
+html { font-size: 100%; }
+a { text-decoration: none; }
+
+body {
+    background-color: cornsilk;
+}
+
+nav{ 
+    background-color: rgb(135, 199, 92);
+    padding: 15px;
+    font-size: 1.2rem;
+}
+nav ul { overflow: hidden; }
+nav li { 
+    float: left; 
+    list-style: none; 
+    padding-right: 40px;
+    font-weight: bolder;
+}
+
+#main {
+    text-align: center;
+    margin-top: 10%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 2;
+}
+th, td{
+    border: 1px solid gray;
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+    left: 45%; bottom: 1%;
+}
+

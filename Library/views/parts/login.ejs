@@ -1,0 +1,15 @@
+<div class="float-right">
+    <% if(isLogin){ %>
+        <a href="/member/logout"><button>Logout ( <%=user_name%> )</button></a>
+        <a href="/member/modify"><button>회원정보</button></a>
+        
+    <% }else{ %>
+        <form action="/member/login" method="post">
+            <label><b>User Email</b></label>
+            <input type="text" placeholder="Enter user email" name="email" required>
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    <% } %>
+</div>

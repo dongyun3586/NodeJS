@@ -1,34 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+  <% include ./parts/head %>
   <body>
     <h1><%= title %></h1>
-
-    <div class="float-right">
-          <a href="/member/logout"><button>Logout ( <%=user_name%> )</button></a>
-          <a href="/member/modify"><button>회원정보</button></a>
-    </div>
-
-    <header>
-      <nav>
-        <ul>
-          <li><a href="/book">도서 검색</a></li>
-          <li><a href="/book">도서 대여</a></li>
-          <li><a href="/book">도서 관리(관리자 기능)</a></li>
-        </ul>
-      </nav>
-    </header>
+    <% include ./parts/login %>
+    <% include ./parts/header %>
 
     <form method="post" action="/member/modify">
         <label for="name">email:</label>
-        <input type="text" id="email" name="email" value="<%=results.email%>"><br><br>
+        <input type="text" id="email" name="email" value="<%=results.email%>" readonly><br><br>
         <label for="password">password:</label>
         <input type="password" id="password" name="password"  value="<%=results.pwd%>"><br><br>
         <label for="password">name:</label>
-        <input type="password" id="name" name="name"  value="<%=results.name%>"><br><br>
+        <input type="text" id="name" name="name"  value="<%=results.name%>"><br><br>
         <label for="grade">grade:</label>
         <input type="text" id="grade" name="grade" value="<%=results.grade%>"><br><br>
         <label for="phone">phone:</label>
