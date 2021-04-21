@@ -1,9 +1,16 @@
 <header>
+    <h1><a href="/"><img width="200px" src="/images/logo.png"></a></h1>
     <nav>
         <ul>
-        <li><a href="/book">도서 검색</a></li>
-        <li><a href="/book">도서 대여</a></li>
-        <li><a href="/book">도서 관리(관리자 기능)</a></li>
+            <li><a href="/info">도서관소개</a></li>
+            <li><a href="search.html">도서검색</a></li>
+            <% if(isLogin){ %>
+                <li><a href="/member/logout">Logout ( <%=user_name%> )</a></li>
+                <li><a href="/member/modify">마이페이지</a></li>
+            <% }else{ %>
+                <li><a href="/member/login">로그인</a></li>
+                <li><a href="/member/signup">회원가입</a></li>
+            <% } %>
         </ul>
     </nav>
 </header>

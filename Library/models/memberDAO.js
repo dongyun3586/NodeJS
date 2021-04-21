@@ -21,5 +21,6 @@ exports.selectMember = (email) => new Promise((resolve, reject)=>{
             resolve(results);
     });
 })
+
 //#endregion
 

@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 var model = require('../models/memberDAO');
 
+// 회원 가입
+router.get('/signup', (req, res, next)=>{
+  res.render('signup', {
+    title: 'Library Homepage(Netword and Database Textbook)',
+    isLogin: req.session.isLogin, 
+    user_email: req.session.user_email,
+    user_name: req.session.user_name
+  })
+});
+
 // 로그인 처리
 router.post('/login', (req, res)=>{
   if(req.body.email && req.body.password){
@@ -78,6 +88,7 @@ router.post('/login', (req, res)=>{
   }
 })
 
+// 로그아웃 처리
 router.get('/logout', (req, res)=>{
   req.session.destroy(function(err){
     if(err)
@@ -86,6 +97,7 @@ router.get('/logout', (req, res)=>{
   });
 })
 
+// 마이페이지 요청
 router.get('/modify', (req, res)=>{
   //#region 1. Callback
   // model.selectMember(req.session.user_email, (results)=>{
@@ -129,6 +141,7 @@ router.get('/modify', (req, res)=>{
   //#endregion
 })
 
+// 마이페이지 수정 요청
 router.post('/modify', (req, res)=>{
   res.send('회원 정보 수정 기능 실행 <a href="/">Home</a>')
 })

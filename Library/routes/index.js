@@ -12,4 +12,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/info', (req, res, next)=>{
+  res.render('libraryInfo', {
+    title: 'Library Homepage(Netword and Database Textbook)',
+    isLogin: req.session.isLogin, 
+    user_email: req.session.user_email,
+    user_name: req.session.user_name
+  })
+});
+
+
+
 module.exports = router;
