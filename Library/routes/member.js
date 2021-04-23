@@ -12,10 +12,21 @@ router.get('/signup', (req, res, next)=>{
   })
 });
 
+// 로그인 페이지 Get 요청
+router.get('/login', (req, res)=>{
+  res.render('login', 
+  { 
+    title: 'Library Homepage(Netword and Database Textbook)', 
+    isLogin: req.session.isLogin, 
+    user_email: req.session.user_email,
+    user_name: req.session.user_name
+  });
+});
+
 // 로그인 처리
 router.post('/login', (req, res)=>{
-  if(req.body.email && req.body.password){
-    console.log('req.body: ', req.body);
+  if(req.body.email && req.body.pwd){
+    // console.log('req.body: ', req.body);
 
     //#region 1. Callback
     // model.selectMember(req.body.email, (results)=>{
@@ -65,20 +76,17 @@ router.post('/login', (req, res)=>{
     //#region 3. async await
     (async ()=>{
       let results = await model.selectMember(req.body.email);
+      // console.log(results);
       if(results[0]==undefined){
         res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
       }else{
-        if(results[0]==undefined){
-          res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
+        if(req.body.email === results[0].email && req.body.pwd === results[0].pwd){
+          req.session.isLogin = true;
+          req.session.user_email = req.body.email;
+          req.session.user_name = results[0].name;
+          res.redirect('/');
         }else{
-          if(req.body.email === results[0].email && req.body.password === results[0].pwd){
-            req.session.isLogin = true;
-            req.session.user_email = req.body.email;
-            req.session.user_name = results[0].name;
-            res.redirect('/');
-          }else{
-            res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
-          }
+          res.send('<h1>로그인 실패</h1><a href="/"><h1>Home</h1></a>')
         }
       }
     })()
@@ -130,7 +138,7 @@ router.get('/modify', (req, res)=>{
   //#region async await
   (async ()=>{
     let results = await model.selectMember(req.session.user_email);
-    res.render('member', { 
+    res.render('mypage', { 
       title: 'Member 정보 수정페이지', 
       isLogin: req.session.isLogin, 
       user_email: req.session.user_email, 

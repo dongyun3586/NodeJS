@@ -1,0 +1,31 @@
+<% include ./parts/head %>
+<body>
+    <% include ./parts/header %>
+    <div>
+        <fieldset>
+            <legend>나의 대출 정보</legend>
+            <!--요청 처리 결과에 따라 달라짐-->
+            누적 대여 횟수: 32건 <br>
+            대출 현황: 2/5건 대출가능
+            <table>
+                <!--요청 처리 결과에 따라 달라짐-->
+                <tr><th>번호</th><th>도서명</th><th>저자</th><th>출판사</th><th>도서번호</th><th>대출일자</th><th>반납일자</th><th>연체일수</th></tr>
+                <tr><td>1</td><td>데이터베이스</td><td>김민영</td><td>GSM</td><td>005김35ㄷ</td><td>2021-04-05</td><td>2021-04-12</td><td>0일</td></tr>
+                <tr><td>2</td><td>실전Node.js</td><td>이동윤</td><td>GSM</td><td>005이24ㅅ</td><td>2021-04-05</td><td>2021-04-12</td><td>0일</td></tr>
+            </table>
+        </fieldset>
+        <form action="/member/modify" method="post">
+            <fieldset>
+                <legend>회원 정보</legend>
+                성명    <input type="text" id="name" name="name"  value="<%=results.name%>"><br>
+                이메일  <input type="text" id="email" name="email" value="<%=results.email%>" readonly><br>
+                연락처  <input type="text" id="phone" name="phone" value="<%=results.phone%>"><br>
+                비밀번호 <input type="password" name="pwd" id="pwd"><br>
+                비밀번호확인 <input type="password" name="pwd_confirm" id="pwd_confirm"><br>
+                <input type="submit" value="수정">
+                <input type="reset" value="취소">
+                <input type="button" value="탈퇴하기">
+            </fieldset>
+        </form>
+    </div>
+    <% include ./parts/footer %>
