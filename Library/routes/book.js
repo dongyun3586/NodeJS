@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 router.post('/search', (req, res)=>{
   console.log(req.body);
   (async ()=>{
-    let booklist = await model_books.selectBooksList(req.body);
+    let booklist = await model_books.selectBookList(req.body);
     // console.log(booklist)
     res.render('search', {
       title: 'Library Homepage(Netword and Database Textbook)',
@@ -45,7 +45,7 @@ router.get('/rent/:book_code', (req, res)=>{
   // console.log(req.params.book_code)
   
   model_books.insertRentInfo(rent_datetime, req.session.user_email, req.params.book_code, ()=>{
-    model_books.updateRentAllow(req.params.book_code, ()=>{
+    model_books.updateRentAllow(req.params.book_code, 1, ()=>{
       res.redirect('/book')
     })
   })
@@ -54,9 +54,18 @@ router.get('/rent/:book_code', (req, res)=>{
   //   let results = await model_books.insertRentInfo(rent_datetime, req.session.user_email, req.params.book_code);
   //   res.send(results);
   // })()
+})
 
-  
-  
+router.get('/returnbook/:book_code', (req, res)=>{
+  var timezoneOffset = new Date().getTimezoneOffset() * 60000; 
+  var timezoneDate = new Date(Date.now() - timezoneOffset);
+  var return_datetime = timezoneDate.toISOString().slice(0, 19).replace('T', ' ')
+
+  model_books.updateReturnDatetime(req.params.book_code, return_datetime, ()=>{
+    model_books.updateRentAllow(req.params.book_code, 0, ()=>{
+      res.redirect('/member/modify')
+    })
+  })
 })
 
 

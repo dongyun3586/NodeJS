@@ -8,10 +8,23 @@
             누적 대여 횟수: 32건 <br>
             대출 현황: 2/5건 대출가능
             <table>
-                <!--요청 처리 결과에 따라 달라짐-->
-                <tr><th>번호</th><th>도서명</th><th>저자</th><th>출판사</th><th>도서번호</th><th>대출일자</th><th>반납일자</th><th>연체일수</th></tr>
-                <tr><td>1</td><td>데이터베이스</td><td>김민영</td><td>GSM</td><td>005김35ㄷ</td><td>2021-04-05</td><td>2021-04-12</td><td>0일</td></tr>
-                <tr><td>2</td><td>실전Node.js</td><td>이동윤</td><td>GSM</td><td>005이24ㅅ</td><td>2021-04-05</td><td>2021-04-12</td><td>0일</td></tr>
+                <tr><th>도서번호</th><th>도서명</th><th>저자</th><th>출판사</th><th>대출일시</th><th>반납일시</th><th>연체일수</th><th>반납 상태</th></tr>
+                <% rentBookList.forEach((element) => { %>
+                    <tr>
+                        <td><%=element.book_code%></td>
+                        <td><%=element.book_name%></td>
+                        <td><%=element.author%></td>
+                        <td><%=element.publisher%></td>
+                        <td><%=element.rent_datetime.toISOString().slice(0, 19).replace('T', ' ')%></td>
+                        <td><%=element.return_datetime == null ? element.return_datetime : element.return_datetime.toISOString().slice(0, 19).replace('T', ' ')%></td>
+                        <td>연체일</td>
+                        <% if(element.return_datetime == null){ %>
+                            <td><a href="/book/returnBook/<%=element.book_code%>">반납%></a></td>
+                        <% }else{ %>
+                            <td>완료</td>
+                        <% } %>
+                    </tr>
+                <% }); %>
             </table>
         </fieldset>
         <form action="/member/modify" method="post">

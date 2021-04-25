@@ -21,6 +21,15 @@ exports.selectMember = (email) => new Promise((resolve, reject)=>{
             resolve(results);
     });
 })
-
 //#endregion
 
+exports.insertMember = (body) => new Promise((resolve, reject)=>{
+    console.log('body ', body);
+    let query = `INSERT INTO member VALUES('${body.email}','${body.pwd}','${body.name}','B','${body.phone}');`
+    connection.query(query, function (error, results, fields) {
+        if(error) 
+            reject(error);
+        else 
+            resolve(results);
+    });
+})

@@ -10,7 +10,7 @@ exports.selectBookInfoList = () => new Promise((resolve, reject)=>{
     });
 })
 
-exports.selectBooksList = (body) => new Promise((resolve, reject)=>{
+exports.selectBookList = (body) => new Promise((resolve, reject)=>{
     let query = keywordsParse(body);
     console.log('query', query);
     connection.query(query, function (error, results, fields) {
@@ -63,8 +63,8 @@ exports.insertRentInfo = (rent_datetime, email, book_code, cb) => {
     });
 }
 
-exports.updateRentAllow = (book_code, cb) =>{
-    let query = `UPDATE books SET rent_allow = 1 WHERE book_code=${book_code}`;
+exports.updateRentAllow = (book_code, value, cb) =>{
+    let query = `UPDATE books SET rent_allow = ${value} WHERE book_code=${book_code}`;
     console.log(query) 
     connection.query(query, function (error, results, fields) {
         if(error) 
@@ -73,6 +73,35 @@ exports.updateRentAllow = (book_code, cb) =>{
             cb();
     });
 }
+
+exports.selectRentBookList = (email)=> new Promise((resolve, reject)=>{
+    // let query = `SELECT books.book_code, info.book_name, info.author, info.publisher FROM books JOIN book_info AS info ON books.ISBN = info.ISBN 
+    //             WHERE books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
+    let query = `SELECT books.book_code, info.book_name, info.author, info.publisher,  rent.rent_datetime, rent.return_datetime FROM books 
+                INNER JOIN book_info info ON books.ISBN = info.ISBN 
+                INNER JOIN rent ON rent.book_code = books.book_code 
+                WHERE books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
+    console.log('query', query);
+    connection.query(query, function (error, results, fields) {
+        if(error) 
+            reject(error);
+        else 
+            resolve(results);
+    });
+})
+
+exports.updateReturnDatetime = (book_code, return_datetime, cb) => {
+    let query = `UPDATE rent SET return_datetime = '${return_datetime}' WHERE book_code = '${book_code}'`
+    console.log('query', query);
+    connection.query(query, function (error, results, fields) {
+        if(error) 
+            console.log(error);
+        else 
+            cb();
+    });
+}
+
+
 
 // exports.insertRentInfo = (rent_datetime, email, book_code, cb) => new Promise((resolve, reject)=>{
 //     let query = `INSERT INTO rent (rent_datetime, email, book_code) VALUES('${rent_datetime}', '${email}', ${book_code})`;

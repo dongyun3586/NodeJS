@@ -13,6 +13,13 @@ router.get('/signup', (req, res, next)=>{
   })
 });
 
+router.post('/signup', (req, res)=>{
+  (async ()=>{
+    await model.insertMember(req.body);
+    res.redirect('/member/login');
+  })()
+})
+
 // 로그인 페이지 Get 요청
 router.get('/login', (req, res)=>{
   res.render('login', 
@@ -139,12 +146,15 @@ router.get('/modify', (req, res)=>{
   //#region async await
   (async ()=>{
     let results = await model.selectMember(req.session.user_email);
+    let rentBookList = await model_books.selectRentBookList(req.session.user_email);
+    console.log('rentBookList', rentBookList)
     res.render('mypage', { 
       title: 'Member 정보 수정페이지', 
       isLogin: req.session.isLogin, 
       user_email: req.session.user_email, 
       user_name: req.session.user_name,
-      results: results[0] }
+      results: results[0],
+      rentBookList: rentBookList }
       );
   })()
   //#endregion
