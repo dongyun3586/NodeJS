@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/memberDAO');
+var model_books = require('../models/booksDAO');
 
 // 회원 가입
 router.get('/signup', (req, res, next)=>{

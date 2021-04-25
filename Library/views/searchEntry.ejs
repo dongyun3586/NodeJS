@@ -26,21 +26,9 @@
 
     <!-- booklist -->
     <table>
-        <tr><th>도서번호</th><th>도서명</th><th>저자</th><th>출판사</th><th>상태</th></tr>
+        <tr><th>도서번호</th><th>도서명</th><th>저자</th><th>출판사</th></tr>
         <% booklist.forEach((element, index) => { %>
-            <tr>
-                <td><%=element.book_code%></td>
-                <td><%=element.book_name%></td>
-                <td><%=element.author%></td>
-                <td><%=element.publisher%></td>
-                <td>
-                    <% if(element.rent_allow == 0){ %>
-                        <a href="/book/rent/<%=element.book_code%>">대출가능</a>
-                    <% }else{ %>
-                        대출중
-                    <% } %>
-                </td>
-            </tr>
+            <tr><td><%=index+1%></td><td><%=element.book_name%></td><td><%=element.author%></td><td><%=element.publisher%></td></tr>
         <% }); %>
     </table>
     <% include ./parts/footer %>
