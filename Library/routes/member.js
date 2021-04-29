@@ -147,14 +147,17 @@ router.get('/modify', (req, res)=>{
   (async ()=>{
     let results = await model.selectMember(req.session.user_email);
     let rentBookList = await model_books.selectRentBookList(req.session.user_email);
-    console.log('rentBookList', rentBookList)
+    let countRentBooks = await model_books.selectCountRentBooks(req.session.user_email);
+    // console.log('countRentBooks', countRentBooks)
+    // console.log('countRentBooks', countRentBooks[0]['count(*)'])
     res.render('mypage', { 
       title: 'Member 정보 수정페이지', 
       isLogin: req.session.isLogin, 
       user_email: req.session.user_email, 
       user_name: req.session.user_name,
       results: results[0],
-      rentBookList: rentBookList }
+      rentBookList: rentBookList,
+      countRentBooks: countRentBooks[0]['count(*)'] }
       );
   })()
   //#endregion

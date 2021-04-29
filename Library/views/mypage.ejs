@@ -5,8 +5,8 @@
         <fieldset>
             <legend>나의 대출 정보</legend>
             <!--요청 처리 결과에 따라 달라짐-->
-            누적 대여 횟수: 32건 <br>
-            대출 현황: 2/5건 대출가능
+            누적 대여 횟수: <%=countRentBooks%>건 <br>
+            대출 현황: <%=rentBookList.length%>건 
             <table>
                 <tr><th>도서번호</th><th>도서명</th><th>저자</th><th>출판사</th><th>대출일시</th><th>반납일시</th><th>연체일수</th><th>반납 상태</th></tr>
                 <% rentBookList.forEach((element) => { %>

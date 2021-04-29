@@ -80,6 +80,21 @@ exports.selectRentBookList = (email)=> new Promise((resolve, reject)=>{
     let query = `SELECT books.book_code, info.book_name, info.author, info.publisher,  rent.rent_datetime, rent.return_datetime FROM books 
                 INNER JOIN book_info info ON books.ISBN = info.ISBN 
                 INNER JOIN rent ON rent.book_code = books.book_code 
+                WHERE rent.return_datetime is NULL AND books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
+    connection.query(query, function (error, results, fields) {
+        if(error) 
+            reject(error);
+        else 
+            resolve(results);
+    });
+})
+
+exports.selectCountRentBooks = (email)=> new Promise((resolve, reject)=>{
+    // let query = `SELECT books.book_code, info.book_name, info.author, info.publisher FROM books JOIN book_info AS info ON books.ISBN = info.ISBN 
+    //             WHERE books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
+    let query = `SELECT count(*) FROM books 
+                INNER JOIN book_info info ON books.ISBN = info.ISBN 
+                INNER JOIN rent ON rent.book_code = books.book_code 
                 WHERE books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
     console.log('query', query);
     connection.query(query, function (error, results, fields) {
