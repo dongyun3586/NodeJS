@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h3>대륙과 인구 숫자로 나라 검색하기</h3>
+    <p>{ Africa, Asia, Europe, North America, South America, Oceania }</p>
+    <form action="/world" method="post">
+      <label for="continent">대륙</label>
+      <input type="text" name="continent" id="continent"><br>
+      <label for="population">인구</label>
+      <input type="number" name="population" id="population"><br>
+      <button type="submit">검색</button>
+  </form>
+
+  <table>
+    <% if (typeof results != 'undefined'){ %>
+      <% results.forEach((item) => { %>
+        <tr>
+          <td><%=item.name%></td>
+          <td><%=item.population%></td>
+        </tr>
+      <% }) %>
+    <% } %>
+
+    <!-- <% if (typeof results != 'undefined'){ %>
+      <% if (results.length !== 0){ %>
+        <% results.forEach((item) => { %>
+          <tr>
+            <td><%=item.name%></td>
+            <td><%=item.population%></td>
+          </tr>
+        <% }) %>
+      <% }else{ %>
+        검색 결과가 없습니다.
+      <% } %>
+    <% } %> -->
+  </table>
+  </body>
+</html>

@@ -1,6 +1,6 @@
-<% include ./parts/head %>
+<%- include ./parts/head %>
 <body>
-    <% include ./parts/header %>
+    <%- include ./parts/header %>
     <div>
         <form action="/book/search" method="post">
             <fieldset>
@@ -32,4 +32,4 @@
             <tr><td><%=index+1%></td><td><%=element.book_name%></td><td><%=element.author%></td><td><%=element.publisher%></td></tr>
         <% }); %>
     </table>
-    <% include ./parts/footer %>
+    <%- include ./parts/footer %>
