@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>
+      <button id=fetchBtn>fetch get 요청</button>
+    </p>
+    
+    <form id="fetchForm">
+      <input type="text" name="testText1">
+      <input type="text" name="testText2">
+      <input type="submit" value="Submit">
+    </form>
+    <h1 id='fetchPostTest'></h1>
+
+    <script>
+      // fetch get 요청 처리
+      document.getElementById('fetchBtn').addEventListener("click", myFunction) 
+      function myFunction(){
+        fetch('/fetch')
+          .then((response)=>response.json())
+          .then((data)=>{
+            console.log(data)
+            document.getElementById('fetchBtn').innerHTML = data.str;
+          })
+      }
+
+      // fetch post 요청 처리
+      document.getElementById('fetchForm').addEventListener('submit', evt => {
+        evt.preventDefault()      // a 태그 submit 태그 등의 고유 동작 중단
+        const form = evt.target
+        // 서버로 전송할 데이터 준비
+        const body = JSON.stringify({
+          data1: form.elements.testText1.value,
+          data2: form.elements.testText2.value
+        })
+        const headers = {"Content-Type": "application/json"}
+        const container = document.getElementById('fetchForm')
+
+        // 서버로의 데이터 전송 및 응답을 받았을 때의 처리
+        fetch('/fetch', { method: "POST", headers, body })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+            document.getElementById('fetchPostTest').innerHTML = `${data.data1} ${data.data2}`;
+          })
+      })
+    </script>
+  </body>
+</html>

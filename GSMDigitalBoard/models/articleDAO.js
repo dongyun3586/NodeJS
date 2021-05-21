@@ -1,14 +1,24 @@
 var connection = require('./db')
 
-exports.selectShowNotice = function(cb){
-    connection.query('SELECT * FROM article WHERE date_start_post<=date(now()) and date_end_post>=date(now())', function (error, results, fields) {
-        if(error){
-            console.log(error);
-        }else{
-            cb(results);
-        }
-    });
-}
+// exports.selectShowNotice = function(cb){
+//     connection.query('SELECT * FROM article WHERE date_start_post<=date(now()) and date_end_post>=date(now())', function (error, results, fields) {
+//         if(error){
+//             console.log(error);
+//         }else{
+//             cb(results);
+//         }
+//     });
+// }
+
+exports.selectShowNotice = () => new Promise((resolve, reject)=>{
+    const query = 'SELECT * FROM article WHERE date_start_post<=date(now()) and date_end_post>=date(now())';
+    connection.query(query, function (error, results, fields){
+        if(error)
+            reject(error);
+        else
+            resolve(results);
+    })
+})
 
 exports.selectAllArticlesCount = (cb)=>{
     connection.query('SELECT COUNT(*) FROM article', 

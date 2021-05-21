@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form action="/process" method="POST">
+      <input type="hidden" name="hush" value="hidden, but not secret!">
+      <div>
+        <label for="fieldColor">Your favorite color: </label>
+        <input type="text" id="fieldColor" name="color">
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <% if(favoriteColor){ %>
+      <h1><%= favoriteColor %></h1>
+    <% } %>
+
+    <div id="formContainer">
+      <form class="form-horizontal" role="form" id="testForm">
+        <div>
+          <label for="fieldColor">Your favorite color: </label>
+          <input type="text" id="fieldColor" name="color">  
+        </div>
+        <div>
+          <label for="fieldColor">Your favorite color: </label>
+          <input type="text" id="fieldColor" name="color">
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -92,22 +92,10 @@ router.get('/delete/:id', function(req, res){
   model.deleteArticle(req.params.id, ()=>res.redirect('/notice/list'))
 })
 
-// 디지털 게시판 화면 
-router.get('/show', function(req, res){
-  model.selectShowNotice((results)=>{
-    // #이 붙은 img 이름 만들기
-    sharpNameList = [];
-    for(var i=0; i<results.length; i++){
-      sharpNameList.push("#img"+results[i].idarticle);
-    }
-
-    res.render('show_notice', 
-    { 
-      results: results,
-      results_length: results.length
-    });
-  })
-});
+router.get('/show', async (req, res)=>{
+  let results = await model.selectShowNotice();
+    res.render('show_notice', {results: results, results_length: results.length})
+})
 
 // 전력 화면 
 router.get('/show_power', (req, res)=>{
@@ -115,3 +103,22 @@ router.get('/show_power', (req, res)=>{
 })
 
 module.exports = router;
+
+
+
+
+// 디지털 게시판 화면 
+// router.get('/show', (req, res)=>{
+//   model.selectShowNotice((results)=>{
+//     // #이 붙은 img 이름 만들기
+//     sharpNameList = [];
+//     for(var i=0; i<results.length; i++){
+//       sharpNameList.push("#img"+results[i].idarticle);
+//     }
+//     res.render('show_notice', 
+//     { 
+//       results: results,
+//       results_length: results.length
+//     });
+//   })
+// });

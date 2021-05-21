@@ -13,6 +13,7 @@ nav{
     font-size: 1.2rem;
 }
 nav ul { overflow: hidden; }
+
 nav li { 
     float: left; 
     list-style: none; 
@@ -26,6 +27,12 @@ nav li {
     font-family: Georgia, 'Times New Roman', Times, serif;
     line-height: 2;
 }
+
+fieldset {
+    margin: 10px;
+    padding: 5px;
+}
+
 th, td{
     border: 1px solid gray;
     text-align: center;

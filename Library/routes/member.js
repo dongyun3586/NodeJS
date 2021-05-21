@@ -3,7 +3,7 @@ var router = express.Router();
 var model = require('../models/memberDAO');
 var model_books = require('../models/booksDAO');
 
-// 회원 가입
+// 회원 가입 페이지 요청
 router.get('/signup', (req, res, next)=>{
   res.render('signup', {
     title: 'Library Homepage(Netword and Database Textbook)',
@@ -13,6 +13,7 @@ router.get('/signup', (req, res, next)=>{
   })
 });
 
+// 회원 가입 요청 처리
 router.post('/signup', (req, res)=>{
   (async ()=>{
     await model.insertMember(req.body);
@@ -20,18 +21,17 @@ router.post('/signup', (req, res)=>{
   })()
 })
 
-// 로그인 페이지 Get 요청
+// 로그인 페이지 GET 요청
 router.get('/login', (req, res)=>{
   res.render('login', 
   { 
-    title: 'Library Homepage(Netword and Database Textbook)', 
     isLogin: req.session.isLogin, 
     user_email: req.session.user_email,
     user_name: req.session.user_name
   });
 });
 
-// 로그인 처리
+// 로그인 POST 처리
 router.post('/login', (req, res)=>{
   if(req.body.email && req.body.pwd){
     // console.log('req.body: ', req.body);
