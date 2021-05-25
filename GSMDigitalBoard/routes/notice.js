@@ -14,7 +14,7 @@ var storage = multer.diskStorage(
   destination: function (req, file, cb) {
     //파일이 이미지 파일이면
     if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
-      // console.log("이미지 파일이네요")
+      console.log("이미지 파일이네요")
       cb(null, 'public/uploads/images')
       //텍스트 파일이면
     } else if (file.mimetype == "application/pdf" || file.mimetype == "application/txt" || file.mimetype == "application/octet-stream") {
@@ -26,6 +26,7 @@ var storage = multer.diskStorage(
     filename: function (req, file, cb) {
       const date = new Date();
     cb(null, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}-${file.originalname.replace(/(\s*)/g, "")}`)
+    console.log('filename', `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}-${file.originalname.replace(/(\s*)/g, "")}`);
   }
 })
 
@@ -48,9 +49,10 @@ router.get('/write', function(req, res) {
 
 // 새로운 게시물 업로드 처리
 router.post('/write', upload.single('image_file'), (req, res)=>{
-  // console.log('req.body', req.body);
-  // console.log('req.file.path', req.file.path)
+  console.log('req.body', req.body);
+  console.log('req.file.path', req.file.path)
   model.insertArticle(req.body, req.file.path.substring(6), req.session.userEmail, ()=>{
+    console.log('req.file.path.substring(6)', req.file.path.substring(6))
     // res.send('<h1>이미지 업로드 성공</h1>')
     res.redirect('/notice/list')
   })

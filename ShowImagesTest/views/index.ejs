@@ -9,5 +9,16 @@
     <p>Welcome to <%= title %></p>
     <h1><a href="/showImages.html">Show Images</a></h1>
     <h1><a href="/showImages.html">Show Videos</a></h1>
+
+    <form id="contactForm" action="/write" method="post" enctype="multipart/form-data">
+      <input type="file" id="image_file" name="image_file" accept="image/png, image/jpg, image/jpeg" required="required">
+      <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Send</button>
+    </form>
+    <% if(imagePath!==undefined){ %>
+      <img src="<%=imagePath%>" alt="">
+    <% }else{ %>
+      이미지 없음
+    <% } %>
+    
   </body>
 </html>
