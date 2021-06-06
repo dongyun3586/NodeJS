@@ -79,12 +79,12 @@ router.get('/list', (req, res)=>{
 // 기존 게시물 삭제 처리
 router.get('/delete/:id', function(req, res){
   model.selectArticlesById(req.params.id, (results)=>{
-    // console.log('req.params.id', req.params.id)
-    // console.log('results', results);
-    // console.log(results[0].article_img.substring(18))
-    let filename = results[0].article_img.substring(16);
+    console.log('req.params.id', req.params.id)
+    console.log('results', results);
+    console.log(results[0].article_img.substring(18))
+    //let filename = results[0].article_img.substring(16);
     // 삭제된 게시물 파일 제거
-    fs.unlink(`./public/uploads/images/${filename}`, (err)=>{
+    fs.unlink(`./public/uploads/images/${results[0].article_img.substring(16)}`, (err)=>{
       if(err){
         console.log('파일 삭제 에러', err.message);
       }
