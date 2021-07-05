@@ -28,35 +28,35 @@ fs_p.readFile('./readme.txt', 'utf8')
 //#endregion
 
 //#region 파일 쓰기
-// // 3. 동기식 파일 쓰기
-// fs.writeFileSync('./write.txt', 'Hello World~ ^^/');
+// 3. 동기식 파일 쓰기
+fs.writeFileSync('./write.txt', 'Hello World~ ^^/');
 
-// // 4. 비동기식 파일 쓰기
-// fs.writeFile('./write.txt', 'fs.writeFile Data', function(err){
-//   if(err) console.log(err);
-//   fs.readFile('./write.txt', 'utf8', function(err, data){
-//     console.log(data);
-//   });
-// });
+// 4. 비동기식 파일 쓰기
+fs.writeFile('./write.txt', 'fs.writeFile Data', function(err){
+  if(err) console.log(err);
+  fs.readFile('./write.txt', 'utf8', function(err, data){
+    console.log(data);
+  });
+});
 //#endregion
 
 //#region 기타
 // 5. 파일에 내용 추가하기
-// fs.appendFile('./write.txt', '\nGSM', (err)=>console.log(err));
+fs.appendFile('./write.txt', '\nGSM', (err)=>console.log(err));
 
-// // 6. 파일 존재 여부 확인
-// fs.access('./write.txt', fs.F_OK | fs.R_OK, function(err){
-//   console.log(err);
-// });
+// 6. 파일 존재 여부 확인
+fs.access('./write.txt', fs.F_OK | fs.R_OK, function(err){
+  console.log(err);
+});
 
-// // 7. 디렉토리 생성하기
-// fs.mkdir('./testDir', function(err){
+// 7. 디렉토리 생성하기
+fs.mkdir('./testDir', function(err){
 
-// });
+});
 
-// // 8. 디렉토리 읽기
-// fs.readdir('./', function(err, files){
-//   console.log(files);
-// });
+// 8. 디렉토리 읽기
+fs.readdir('./', function(err, files){
+  console.log(files);
+});
 //#endregion
 
