@@ -90,7 +90,7 @@ exports.updateReturnDatetime = (book_code, return_datetime, cb) => {
 }
 
 exports.selectRentBookList = (email)=> new Promise((resolve, reject)=>{
-    const query = `SELECT books.book_code, info.book_name, info.author, info.publisher,  rent.rent_datetime, rent.return_datetime FROM books 
+    const query = `SELECT books.book_code, info.book_name, info.author, info.publisher, rent.rent_datetime, rent.return_datetime FROM books 
                 INNER JOIN book_info info ON books.ISBN = info.ISBN 
                 INNER JOIN rent ON rent.book_code = books.book_code 
                 WHERE rent.return_datetime is NULL AND books.book_code IN (SELECT book_code FROM rent WHERE email = '${email}')`
