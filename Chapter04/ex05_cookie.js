@@ -31,7 +31,7 @@ const server = http.createServer(function(req, res){
         res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'})
         res.write(`<h1>welcome ${cookies.name}님, ${global.visit_count}번째 방문입니다.</h1>`)
         res.write('<h3><a href=/clearCookies>쿠키 삭제하기</a></h3>')
-        res.end('<img src="http://gg.gg/mulxu">')
+        res.end('<img src="https://nodejs.org/static/images/logo.svg">')
     }else{
         fs.readFile('./ex05_setCookie.html', function(err, data){
             res.end(data)
