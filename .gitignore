@@ -1,6 +1,10 @@
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
+### Media Files ###
+*.mp4
+*.webm
+
 ### Node ###
 # Logs
 logs
@@ -44,6 +48,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+public/uploadFiles
 
 # TypeScript v1 declaration files
 typings/
