@@ -27,3 +27,5 @@ var createPath = path.join(
 );
 console.log('createPath : ' + createPath);
 
+Number.is
+
