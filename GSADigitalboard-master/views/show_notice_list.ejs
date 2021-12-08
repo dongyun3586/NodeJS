@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSA Digitalboard</title>
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href='/stylesheets/login_style.css' rel='stylesheet' />
+  <link href="/stylesheets/styles_index.css" rel="stylesheet" />
+</head>
+<body>
+  
+  <!-- Navigation-->
+  <div class="container">
+    <div class="row float-right">
+      <% if(isLogin){ %>
+        <span class="psw margin-right-2rem"><a href="/">HOME</a></span>
+        <span class="psw margin-right-2rem"><a href="/notice/write">Write</a></span>
+        <span class="psw margin-right-2rem"><a href="/users/logout">Logout (<%=userEmail%>)</a></span>
+    <% } %>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <h5>Notice List (Total counts: <%= results.length %>)</h5>
+    </div>
+  </div>
+<div class="container">
+  <p><button type="button" class="btn btn-danger">GSA Digitalboard</button></p>   
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Date(start)</th>
+        <th>Date(end)</th>
+        <th class="d-none">Place</th>
+        <th class="d-none">ShowTime</th>
+        <th>Message</th>
+        <th>Writer(e-mail)</th>
+        <th>Modify Delete</th>
+        <th>확인</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.forEach((item)=>{ %>
+        <tr>
+          <td><%= item.idarticle %></td>
+          <td class="d-inline-block text-truncate" style="max-width: 150px;"><%= item.title %></td>
+          <td><%= item.date_start_post.toString().substring(0, 10) %></td>
+          <td><%= item.date_end_post.toString().substring(0, 10) %></td>
+          <td class="d-none"><%= item.place %></td>
+          <td class="d-none"><%= item.show_time %></td>
+          <td class="d-inline-block text-truncate" style="max-width: 150px;"><%= item.message %></td>
+          <td><%= item.writer_email %></td>
+          <td>
+            <a href="/notice/modify/<%= item.idarticle %>">Modify</a>
+            <a href="/notice/delete/<%= item.idarticle %>">Delete</a>
+          </td>
+          <td>
+            <% if(item.type==='image'){ %>
+              <a href="/uploadFiles/Images/<%= item.file_path %>">이미지</a>
+            <% }else if(item.type==='video') { %>
+              <a href="/uploadFiles/videos/<%= item.file_path %>">동영상</a>
+            <% } %>
+            </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
