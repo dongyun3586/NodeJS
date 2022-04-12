@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User list</title>
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href='/stylesheets/login_style.css' rel='stylesheet' />
+  <link href="/stylesheets/styles_index.css" rel="stylesheet" />
+</head>
+<body>
+  
+  <!-- Navigation-->
+  <div class="container mb-2">
+    <div class="row float-right">
+      <% if(isLogin){ %>
+        <span class="psw margin-right-2rem"><a href="/">HOME</a></span>
+        <span class="psw margin-right-2rem"><a href="/notice/write">Write</a></span>
+        <span class="psw margin-right-2rem"><a href="/notice/list">Notice List</a></span>
+        <span class="psw margin-right-1rem"><a href="/users/logout">Logout (<%=userEmail%>)</a></span>
+    <% } %>
+    </div>
+  </div>
+  <div class="container d-none">
+      <h6>User List (Total counts: <%= results.length %>)</h6>
+  </div>
+<div class="container">
+ <!-- Button to open the modal -->
+ <button onclick="document.getElementById('id01').style.display='block'">Add_user</button>
+
+ <!-- The Modal (contains the Sign Up form) -->
+ <div id="id01" class="modal">
+   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">times;</span>
+   <form class="modal-content animate" action="/users/add_user" method="post">
+     <div class="container">
+       <h1>Sign Up</h1>
+       <p>Please fill in this form to create an account.</p>
+       <hr>
+
+       <label for="name"><b>Name</b></label>
+       <input type="text" placeholder="Name" name="name" required>
+ 
+       <label for="email"><b>Email</b></label>
+       <input type="text" placeholder="Enter Email" name="email" required>
+ 
+       <label for="psw"><b>Password</b></label>
+       <input type="password" placeholder="Enter Password" name="psw" required>
+ 
+      
+       <label for="role"><b>role</b></label>
+       <input type="text" placeholder="Enter role" name="role" required>
+
+       <label for="level"><b>level(admin=1,teacher=2,student=3)</b></label>
+       <input type="text" placeholder="Enter Level" name="level" required>
+
+       <div class="clearfix">
+         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+         <button type="submit" class="signup">Sign Up</button>
+       </div>
+     </div>
+   </form>
+ </div> 
+
+
+  <table class="table table-striped text-center">
+    <thead>
+      <tr>
+        <th>Id(Email)</th>
+        <th>Password</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.forEach((item)=>{ %>
+        <tr>
+          <td><%= item.email %></td>
+          <td><%= item.pwd %></td>
+          <td><%= item.name %></td>
+          <td><%= item.role %></td>
+          <td><a href="/users/user_delete/<%= item.email %>" onClick = "return confirm('해당 사용자를 삭제하시겠습니까?')">Delete</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<!-- <script src="/javascripts/notice_list.js"></script> -->
+</body>
+</html>

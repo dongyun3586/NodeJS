@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Page-enter" content = "revealtrans(Duration=2,Transition=7)">
+  <title>GSA Digitalboard</title>
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href='/stylesheets/login_style.css' rel='stylesheet' />
+  <link href="/stylesheets/styles_index.css" rel="stylesheet" />
+</head>
+<body>
+  
+  <!-- Navigation-->
+  <div class="container mb-2">
+    <div class="row float-right">
+      <% if(isLogin){ %>
+        <span class="psw margin-right-2rem"><a href="/">HOME</a></span>
+        <span class="psw margin-right-2rem"><a href="/notice/write">Write</a></span>
+        <span class="psw margin-right-1rem"><a href="/users/logout">Logout (<%=userEmail%>)</a></span>
+    <% } %>
+    </div>
+  </div>
+  <div class="container d-none">
+      <h6>Notice List (Total counts: <%= results.length %>)</h6>
+  </div>
+<div class="container"> 
+  <table class="table table-striped text-center">
+    <thead>
+      <p><button type="button" class="btn btn-danger">GSA Digitalboard</button></p>  
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Section</th>
+        <th>Date(start)</th>
+        <th>Date(end)</th>
+        <th class="d-none">Place</th>
+        <th class="d-none">ShowTime</th>
+        <th>Message</th>
+        <th>Writer(e-mail)</th>
+        <th>Modify</th>
+        <th>Delete</th>
+        <th>Check</th>
+        <th>Change_Order</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% var order=1; var id=new Array(); var maxid=0; %>
+      <% results.forEach((item)=>{ %>
+        <% id[order]=item.idarticle; order=order+1; %>
+        <% if(maxid < item.idarticle ){ %>
+          <% maxid=item.idarticle; %>
+        <% } %>
+      <% }) %>
+      <% order=1; %>
+      <% results.forEach((item)=>{ %>
+        <% var endDate = new Date(item.date_end_post) %>
+        <% if(new Date() >= new Date(item.date_start_post) && new Date() <= endDate.setDate(endDate.getDate()+1)){ %>
+          <tr>
+        <% }else{ %>
+          <tr class="text-danger">
+        <% } %>
+          <td><%= item.idarticle %></td>
+          <td class="d-inline-block text-truncate" style="max-width: 150px;"><%= item.title %></td>
+          <td><%=item.section_number %></td>
+          <td><%= new Date(item.date_start_post).toLocaleDateString() %></td>
+          <td><%= new Date(item.date_end_post).toLocaleDateString() %></td>
+          <td class="d-none"><%= item.place %></td>
+          <td class="d-none"><%= item.show_time %></td>
+          <td class="d-inline-block text-truncate" style="max-width: 150px;"><%= item.message %></td>
+          <td><%= item.writer_email %></td>
+          <td><a href="/notice/modify/<%= item.idarticle %>">Modify</a></td>
+          <td><a href="/notice/delete/<%= item.idarticle %>">Delete</a></td>
+          <td>
+            <% if(item.type==='image'){ %>
+              <a href="/uploadFiles/images/<%= item.file_path %>">이미지</a>
+            <% }else if(item.type==='video') { %>
+              <a href="/uploadFiles/videos/<%= item.file_path %>">동영상</a>
+            <% } %>
+            </td>
+          <%order=results.length;%>
+          <td>
+            <form action="http://10.122.2.105:3000/notice/change_order/<%=item.idarticle%>">
+            <select name='order'>
+              <% for(var i=1;i< maxid ;i++) { %>
+                <%if(id[order]==i){%>
+                  <% order=order-1 %>
+                <%}else{%>
+                  <option value="<%=i%>"><%=i%></option>
+                <%}%>
+              <% } %>
+            </select>
+              <input type="submit" value="change">
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<!-- <script src="/javascripts/notice_list.js"></script> -->
+</body>
+</html>

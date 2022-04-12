@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>GSADigitalBoard</title>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- 로그인(modal) CSS  -->
+        <link href="css/modal_login.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">GSADigitalBoard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <% if(!isLogin){ %>
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a></li>
+                        <% } %>
+                        <% if(isLogin){ %>
+                            <li class="nav-item"><a class="nav-link" href="/notice/list">Notice List</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/notice/write">Write</a></li>
+                            <%if(userLevel===1) {%>
+                                <li class="nav-item"><a class="nav-link" href="/users/user_manage">User Management</a></li> 
+                                <% } %>
+                            <li class="nav-item"><a class="nav-link" href="/users/logout">Logout(<%=userEmail%>)</a></li>
+                        <% } %>
+                          </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="id01" class="modal">
+            <!-- 로그인 폼 -->
+            <form class="modal-content animate" action="/users/login" method="post" >
+              <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+              </div>
+      
+              <div class="container">
+                <label for="uname"><b>E-mail</b></label>
+                <input type="text" placeholder="Enter E-mail" name="email" required>
+      
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="pwd" required>
+                  
+                <button id="loginbtn" type="submit">Login</button>
+              </div>
+      
+              <div class="container" style="background-color:#f1f1f100">
+                <button id="cancelbtn" type="button" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">38기 정보과학 R&E</div>
+                <div class="masthead-heading text-uppercase">광주과학고등학교 디지털 게시판</div>
+            </div>
+            <div class="container" style="opacity: 0.8">
+                <div class="row justify-content-around">
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-danger btn-xl m-sm-3" href = "/notice/show_image/1/1">급식실</a>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-danger btn-xl m-sm-3" href = "/notice/show_image/2/1">기숙사</a>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a class="btn btn-danger btn-xl m-sm-3" href = "/notice/show_image/4/1">장소 추가</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+                <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">GSA 디지털 게시판 이용 안내</h2>
+                    <h3 class="section-subheading text-muted">
+                        현재 급식실에서 테스트되고 있는 GSA 디지털게시판에 대한 안내입니다.
+                        <br>
+                        <br>
+                        기능<br>
+                        •교내디스플레이 장치에 각종 정보를 이미지와 동영상 형태로 내보낼 수 있습니다.<br>
+                        •장소별로 다른 정보를 내보낼 수 있습니다. (급식실, 기숙사, 학교홍보 등)<br>
+                        <br>
+                        이용방법<br>
+                        •학생들 중 게시 권한이 필요하시면 소속과 사용목적을 저희에게 보내주세요. 확인 후 계정을 만들어드리겠습니다.
+                        예시) 도서부 / 행사 홍보<br>
+                        </h3>
+                </div>
+            </div>
+        </section>
+        <!-- About-->
+        <section class="page-section" id="about">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">프로젝트 소개</h2>
+                    <h3 class="section-subheading text-muted">본 사이트는 광주과학고등학교 2021년 정보과학 기초R&E로 작성되었습니다.</h3>
+                </div>
+                <ul class="timeline">
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/5.png" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2021. 3.</h4>
+                                <h4 class="subheading">정보과학 R&E 팀 편성</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/11.png" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2021. 4. </h4>
+                                <h4 class="subheading">R&E 주제 선정 및 계획 수립</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/22.png" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2021. 5. ~ 2021. 7. </h4>
+                                <h4 class="subheading">역할분담 및 연구수행을 위해 필요한 내용 학습</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/33.png" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2021. 8.</h4>
+                                <h4 class="subheading">디지털 게시판 프로토타입 제작</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/44.jpg" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2021. 9.</h4>
+                                <h4 class="subheading">디지털 게시판 초기 버전 배포 및 수정·보완 작업</h4>
+                            </div>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </section>
+        <!-- Team-->
+        <section class="page-section bg-light" id="team">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">OUR TEAM</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/member1.jpg" alt="..." />
+                            <h4>신동민</h4>
+                            <p class="text-muted">Backend&Database</p>
+                            <p class="text-muted">21049@gsa.hs.kr</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/member1.jpg" alt="..." />
+                            <h4>김도형</h4>
+                            <p class="text-muted">Backend&Database</p>
+                            <p class="text-muted">21012@gsa.hs.kr</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/member3.jpg" alt="..." />
+                            <h4>곽나영</h4>
+                            <p class="text-muted">Frontend&Design</p>
+                            <p class="text-muted">21005@gsa.hskr</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">게시물 작성 권한이 필요하신 경우 메일을 보내주세요.</h3>
+                </div>
+                <!-- * * SB Forms Contact Form * *-->
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit success message-->
+                    <!-- This is what your users will see when the form-->
+                    <!-- has successfully submitted-->
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center text-white mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                            To activate this form, sign up at
+                            <br />
+                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <!---->
+                    <!-- This is what your users will see when there is-->
+                    <!-- an error submitting the form-->
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                    <!-- Submit Button-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+                </form>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; 2021-GSA</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://m.facebook.com/GSAStudents/?locale2=ko_KR" target = '_blank'><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.instagram.com/gsa._.official/" target = '_blank'><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

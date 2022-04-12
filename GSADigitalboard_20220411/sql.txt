@@ -1,0 +1,43 @@
+show databases;
+use digitalboard_db;
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1111';
+
+CREATE TABLE `user` (
+   `email` varchar(50) NOT NULL,
+   `pwd` varchar(250) NOT NULL,
+   `name` varchar(10) NOT NULL,
+   `role` varchar(250) DEFAULT NULL,
+   `level` int NOT NULL,
+   PRIMARY KEY (`email`)
+ );
+ 
+ CREATE TABLE `article` (
+   `idarticle` int NOT NULL AUTO_INCREMENT,
+   `title` varchar(100) NOT NULL,
+   `date_start_post` date NOT NULL,
+   `date_end_post` date NOT NULL,
+   `place` int NOT NULL,
+   `file_path` varchar(200) NOT NULL,
+   `writer_email` varchar(100) NOT NULL,
+   `message` varchar(200) DEFAULT NULL,
+   `type` varchar(10) DEFAULT NULL,
+   PRIMARY KEY (`idarticle`)
+ );
+ 
+ insert into user values ('ldy@gsa.hs.kr','1111','이동윤','admin',1);
+ insert into user values ('teacher@gsa.hs.kr','1111','교사','teacher',2);
+ insert into user values ('student@gsa.hs.kr','1111','학생','student',3);
+ 
+ SELECT * FROM article;
+ DELETE FROM article WHERE idarticle = 29;
+ 
+ALTER TABLE article ADD show_time int NOT NULL;
+ALTER TABLE article ADD play_sound int DEFAULT 0 ;
+ALTER TABLE article ADD section_number int NOT NULL DEFAULT 1;
+
+ 
+ SELECT * FROM article WHERE date_start_post<='2021-10-04 12:00' and date_end_post>='2021-10-04 12:00' and type='image' and (place & 7) != 0 and (show_time & 1) != 0;
+ UPDATE article SET title = ?, date_start_post = ?, date_end_post = ?, place = ?, writer_email = ?, message = ?, show_time = ? WHERE idarticle = ?; 
+ 
+ show create table article;

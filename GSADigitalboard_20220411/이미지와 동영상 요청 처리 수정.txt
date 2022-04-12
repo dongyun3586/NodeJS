@@ -1,0 +1,38 @@
+□ 이미지 게시물 요청
+<요청 URL> 
+=> '/show_image/:placeCode'      (예) http://localhost:3000/notice/show_image/1
+1. DB에서 이미지 데이터 SELECT → 이미지가 있으면 res.render('show_image'...
+2. DB에서 이미지 데이터 SELECT → 이미지가 없으면 비디오자료 검색 → 비디오도 있으면 res.redirect('/notice/show_video/0/'
+3. DB에서 이미지 데이터 SELECT → 이미지가 없으면 비디오자료 검색 → 비디오도 없으면 res.render('no_notice'
+
+□ 동영상 게시물 요청
+<요청 URL> 
+=> '/show_video/:no/:placeCode'     (예) http://localhost:3000/notice/show_video/0/1
+<showImages.js>
+window.location.href = "http://localhost:3000/notice/show_video/0/"+placeCode;
+
+1. DB에서 비디오 데이터 SELECT → 비디오가 없으면 이미지 요청으로 넘어가기
+ res.redirect('/notice/show_image/'+req.params.placeCode)
+
+2. 비디오가 있으면 현재 재생할 비디오와 다음 비디오 정보 저장
+videoList=[ ] 리스트에 가져온 비디오 데이터의 file_path 저장.
+
+3. 마지막 비디오가 아니면 다음 비디오 요청
+nextVideo = `http://localhost:3000/notice/show_video/${parseInt(req.params.no)+1}/${parseInt(req.params.placeCode)}`
+
+4. 마지막 비디오이면 다음은 이미지 요청
+nextVideo = `http://localhost:3000/notice/show_image/${parseInt(req.params.placeCode)}`       
+
+<showVideos.js>
+const vid = document.getElementById("myVideo");
+// 동영상이 끝나면 링크를 클릭하여 다음 동영상으로 넘어가기
+vid.onended = function() {
+    document.getElementById("gotoLINK").click();
+};
+
+=====================================================================================
+
+요청 정보
+placeCode = 1, 2, 4 (급식실, 기숙사, 기타)
+no = 비디오 요청 번호(0번 부터 시작) => DB에서 불러온 비디오 자료의 개수
+section = 1, 2, 3 (게시 순서를 위한 section 번호)

@@ -1,0 +1,31 @@
+□ 이미지 요청 처리
+'/show_image/:placeCode/:sectionNum'
+(공통) DB에서 이미지 데이터 SELECT
+1. 이미지 데이터가 있으면 res.render('show_image') 
+   → <showImages.js> 에서 비디오 데이터 요청 window.location.href = "http://localhost:3000/notice/show_video/0/"+placeCode+"/"+sectionNum;
+
+2. 이미지 데이터가 없으면 비디오 데이터 존재 유무 체크
+   → 비디오 데이터가 있으면 res.redirect('/notice/show_video/0/'+req.params.placeCode+'/'+req.params.sectionNum)
+
+3. 이미지 데이터가 없으면 비디오 자료 검색
+   → 비디오 데이터가 없으면 
+   → 현재 secton 번호가 마지막이라면 → section1 이미지 요청 res.redirect(`/notice/show_image/${req.params.placeCode}/1`)
+   → 현재 secton 번호가 마지막이 아니라면 → 다음 section 이미지 자료 요청 res.redirect('/notice/show_image/'+req.params.placeCode+'/'+req.params.sectionNum+1)
+※ 게시물 없음 화면 표시 res.render('no_notice', {placeCode: req.params.placeCode})   
+-----------------------------------------------------------------------------------------------------------------------------------
+
+□ 비디오 요청 처리
+'/show_video/:no/:placeCode/:sectionNum'
+(공통) DB에서 비디오 데이터 SELECT
+1. 비디오 데이터가 없으면
+  - 마지막 section이 아니면 → 다음 section 이미지 요청 res.redirect('/notice/show_image/'+req.params.placeCode+'/'+sectionNum+1)
+  - 마지막 section이면 → 처음 section 이미지 요청 res.redirect('/notice/show_image/0/1')
+
+2. 비디오 데이터가 있으면 
+  (공통) 현재 재생할 비디오와 다음 비디오 정보 저장 → videoList=[ ] 리스트에 가져온 비디오 데이터의 file_path 저장.
+  - 마지막 비디오가 아니면 → 다음 비디오 요청
+    nextVideo = `http://localhost:3000/notice/show_video/${parseInt(req.params.no)+1}/${parseInt(req.params.placeCode)}/${parseInt(req.params.sectionNum)}`
+
+  - 마지막 비디오이면
+    - 마지막 section이 아니면 → 다음 section 이미지 요청 res.redirect('/notice/show_image/'+req.params.placeCode+'/'+sectionNum+1)
+    - 마지막 section이면 → 처음 section 이미지 요청 res.redirect('/notice/show_image/0/1')
